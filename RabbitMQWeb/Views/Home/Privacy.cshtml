@@ -1,0 +1,202 @@
+﻿@{
+    ViewData["Title"] = "Quản lý ";
+    <script src="https://code.jquery.com/jquery-3.7.0.min.js" integrity="sha256-2Pmvv0kuTBOenSvLm6bvfBSSHrUJ+3A7x6P5Ebd07/g=" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/morris.js/0.5.1/morris.css">
+    <script src="//cdnjs.cloudflare.com/ajax/libs/raphael/2.1.0/raphael-min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/morris.js/0.5.1/morris.min.js"></script>
+}
+<script type="text/javascript">
+    $(document).ready(function () {
+        var svname = "";
+        listServer2();
+        Loadchart1();
+        $('#btnaddsv').click(function () {
+            addsv();           
+            $("#Message").show();
+            $('#cbxServerName2').empty();
+            listServer2();
+        })
+
+        $('#btnsendmail').click(function () {
+            Sendmail();
+        })
+      
+        function addsv() {
+            
+            $.ajax({
+                url: "https://localhost:44387/api/ServerInfor",
+                type: 'POST',
+                dataType: 'json',
+                data: JSON.stringify({
+                    "name": $('#txtServername').val(),
+                    "ip": $('#txtip').val(),
+                    "region": $('#txtregion').val()
+                }),
+                mode: 'cors',
+                contentType: 'application/json',
+                success: function(){
+                    $("#Message").text(" Add Server  " + $('#txtServername').val() + " success!! ");
+                }
+            });
+         }
+        function listServer2() {
+            $.ajax({
+
+                url: "https://localhost:44387/api/ServerInfor/servername",
+                type: 'GET',
+                dataType: 'json',
+                success: function (data) {
+                    $.each(data, function (index, val) {
+                        $('#cbxServerName2').append('<option value="' + val + '">' + val + '</option>');
+                        svname = val;
+                    });
+                }
+            });
+        }
+
+        function Sendmail() {
+            $.ajax({
+                url: "https://localhost:44387/api/ServerInfor/sendmail/" + $('#cbxServerName2').val(),
+                type: 'GET',
+                dataType: 'json',
+                success: function (data) {
+                    $("#successMessage").text("Send mail to " + $('#cbxServerName2').val() + " success!! Check your mail");
+                    $("#successMessage").show();
+                }
+            });
+        }
+        function Loadchart1() {
+            $.ajax({
+                url: "https://localhost:44387/api/ServerInfor/servername1/" + "SV1",
+                type: 'GET',
+                dataType: 'json',
+                success: function (data) {
+                    chart1.setData(data);
+                }
+            });
+            $.ajax({
+                url: "https://localhost:44387/api/ServerInfor/servername1/" + "SV2",
+                type: 'GET',
+                dataType: 'json',
+                success: function (data) {
+                    chart2.setData(data);
+                }
+            });
+            $.ajax({
+                url: "https://localhost:44387/api/ServerInfor/servername1/" + "SV3",
+                type: 'GET',
+                dataType: 'json',
+                success: function (data) {
+                    chart3.setData(data);
+                }
+            });
+        }
+
+    });
+</script>
+<div class="ip">
+    <b>Server</b>
+    <select id="cbxServerName2"></select>
+    @*<p id="text" class="text-left">${svname}</p>*@
+    <button id="btnsendmail" type="button" class="btn btn-outline-primary">Send mail</button>
+</div>
+<div id="successMessage" style="display:none;"> Send mail Succeed :)) Check your mail </div>
+<div class="ip">
+    <h2 id="text-chart" class="text-center">Add Server</h2>
+    <b>Server Name</b>
+    <input id="txtServername" type="text" />
+    <b>Server IP</b>
+    <input id="txtip" type="text" />
+    <b>Server Region</b>
+    <input id="txtregion" type="text" />
+    <button id="btnaddsv" type="button" class="btn btn-outline-primary">Add Server</button>
+    
+</div>
+<div id="Message" style="display:none;"> </div>
+<div id="myfirstchart1" style="height: 500px;"></div>
+
+
+<script>
+
+    var chart1 = new Morris.Bar({
+        // ID of the element in which to draw the chart.
+        element: 'myfirstchart1',
+        // Chart data records -- each entry in this array corresponds to a point on
+        // the chart.
+        //data: [
+        //    { year: '2008', value: 20 },
+        //    { year: '2009', value: 10 },
+        //    { year: '2010', value: 5 },
+        //    { year: '2011', value: 5 },
+        //    { year: '2012', value: 20 }
+        //],
+        // The name of the data record attribute that contains x-values.
+        xkey: 'time',
+        // A list of names of data record attributes that contain y-values.
+        ykeys: ['cpu', 'ram', 'd'],
+        // Labels for the ykeys -- will be displayed when you hover over the
+        // chart.
+        labels: ['CPU', 'RAM', 'DISK']
+    });
+</script>
+<div class="ip">
+    <h3 id="text-chart" class="text-center">Bar Chart SV1</h3>
+</div>
+<div id="myfirstchart2" style="height: 500px;"></div>
+
+
+<script>
+
+    var chart2 = new Morris.Bar({
+        // ID of the element in which to draw the chart.
+        element: 'myfirstchart2',
+        // Chart data records -- each entry in this array corresponds to a point on
+        // the chart.
+        //data: [
+        //    { year: '2008', value: 20 },
+        //    { year: '2009', value: 10 },
+        //    { year: '2010', value: 5 },
+        //    { year: '2011', value: 5 },
+        //    { year: '2012', value: 20 }
+        //],
+        // The name of the data record attribute that contains x-values.
+        xkey: 'time',
+        // A list of names of data record attributes that contain y-values.
+        ykeys: ['cpu', 'ram', 'd'],
+        // Labels for the ykeys -- will be displayed when you hover over the
+        // chart.
+        labels: ['CPU', 'RAM', 'DISK']
+    });
+</script>
+<div class="ip">
+    <h3 id="text-chart" class="text-center">Bar Chart SV2</h3>
+</div>
+<div id="myfirstchart3" style="height: 500px;"></div>
+
+
+<script>
+
+    var chart3 = new Morris.Bar({
+        // ID of the element in which to draw the chart.
+        element: 'myfirstchart3',
+        // Chart data records -- each entry in this array corresponds to a point on
+        // the chart.
+        //data: [
+        //    { year: '2008', value: 20 },
+        //    { year: '2009', value: 10 },
+        //    { year: '2010', value: 5 },
+        //    { year: '2011', value: 5 },
+        //    { year: '2012', value: 20 }
+        //],
+        // The name of the data record attribute that contains x-values.
+        xkey: 'time',
+        // A list of names of data record attributes that contain y-values.
+        ykeys: ['cpu', 'ram', 'd'],
+        // Labels for the ykeys -- will be displayed when you hover over the
+        // chart.
+        labels: ['CPU', 'RAM', 'DISK']
+    });
+</script>
+<div class="ip">
+    <h3 id="text-chart" class="text-center">Bar Chart SV3</h3>
+</div>

@@ -1,0 +1,113 @@
+﻿@{
+    ViewData["Title"] = "Search ";
+    <script src="https://code.jquery.com/jquery-3.7.0.min.js" integrity="sha256-2Pmvv0kuTBOenSvLm6bvfBSSHrUJ+3A7x6P5Ebd07/g=" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/morris.js/0.5.1/morris.css">
+    <script src="//cdnjs.cloudflare.com/ajax/libs/raphael/2.1.0/raphael-min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/morris.js/0.5.1/morris.min.js"></script>
+}
+
+<script type="text/javascript">
+    $(document).ready(function () {
+                
+        loadData();
+        listServer();
+        $('#btnloadtable').click(function () {
+            $("#table  td").remove();
+            listData();
+        })
+        function listServer() {
+            $.ajax({
+                url: "https://localhost:44387/api/ServerInfor/servername",
+                type: 'GET',
+                dataType: 'json',
+                success: function (data) {
+                    $.each(data, function (index, val) {
+                        $('#cbxServerName').append('<option value="' + val + '">' + val + '</option>');
+                        svname = val;
+                    });
+                }
+            });
+        }
+        function listData() {
+            $.ajax({
+                url: "https://localhost:44387/api/ServerInfor/servername/" + $('#cbxServerName').val(),
+                type: 'GET',
+                dataType: 'json',
+                success: function (data) {
+                    $.each(data, function (index, val) {
+                        //if (val.ram > 50 ) $('td').css('color', 'red');
+                        $('.table').append('<tr>' +
+                            '<td>' + val.id + '</td>' +
+                            '<td>' + val.name + '</td>' +
+                            '<td>' + val.cpu + "%" + '</td>' +
+                            '<td>' + val.ram + "%" + '</td>' +
+                            '<td>' + val.d + "%" + '</td>' +
+                            '<td>' + val.time + '</td>' +
+                            '<td>' + val.ip + '</td>' +
+                            '<td>' + val.region + '</td>' +
+                            '</tr>');
+                       // 
+                    });
+                }
+            });
+        }
+        function loadData() {
+                            $.ajax({
+                                url: "https://localhost:44387/api/ServerInfor/servername/" + "SV1",
+                                type: 'GET',
+                                dataType: 'json',
+                                success: function (data) {
+                                    $.each(data, function (index, val) {
+                                       // $('td').css('color', 'black');
+                                        
+                  
+                                        $('.table').append('<tr>' +
+                                            '<td>' + val.id + '</td>' +
+                                            '<td>' + val.name + '</td>' +
+                                            '<td>' + val.cpu + "%" + '</td>' +
+                                            '<td>' + val.ram + "%" + '</td>' +
+                                            '<td>' + val.d + "%" + '</td>' +
+                                            '<td>' + val.time + '</td>' +
+                                            '<td>' + val.ip + '</td>' +
+                                            '<td>' + val.region + '</td>' +
+                                            '</tr>');
+                        //if (val.cpu > 50 || val.ram > 50 || val.d > 50)
+                        //if (val.ram == 51)
+                            //$('".' + val.id + '"').css('color', 'red');
+                                    });
+                                }
+                            });
+
+                        
+        }
+
+    });
+</script>
+
+<div class="ip">
+    <h3 id="text-chart" class="text-center">History Resource Server</h3>
+</div>
+<div class="ip">
+
+
+    <b>Chose Server Name</b>
+    <select id="cbxServerName"></select>
+    <button id="btnloadtable" type="button" class="btn btn-outline-primary">Search</button>
+</div>
+<div class="text-center">
+    <div>
+        <table id="table" class="table">
+            <tr>
+                <th>ID</th>
+                <th>Server</th>
+                <th>CPU</th>
+                <th>RAM</th>
+                <th>Disk</th>
+                <th>Time</th>
+                <th>IP</th>
+                <th>Region</th>
+            </tr>
+        </table>
+    </div>
+
+</div>

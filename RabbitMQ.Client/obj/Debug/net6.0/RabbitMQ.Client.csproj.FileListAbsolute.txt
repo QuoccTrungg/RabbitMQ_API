@@ -1,0 +1,7 @@
+D:\Thuc tap tot nghiep\RabbitMQ.Client\obj\Debug\net6.0\RabbitMQ.Client.csproj.AssemblyReference.cache
+D:\Thuc tap tot nghiep\RabbitMQ.Client\obj\Debug\net6.0\RabbitMQ.Client.GeneratedMSBuildEditorConfig.editorconfig
+D:\Thuc tap tot nghiep\RabbitMQ.Client\obj\Debug\net6.0\RabbitMQ.Client.AssemblyInfoInputs.cache
+D:\Thuc tap tot nghiep\RabbitMQ.Client\obj\Debug\net6.0\RabbitMQ.Client.AssemblyInfo.cs
+D:\Thuc tap tot nghiep\RabbitMQ.Client\obj\Debug\net6.0\RabbitMQ.Client.csproj.CoreCompileInputs.cache
+D:\Thuc tap tot nghiep\RabbitMQ.Client\obj\Debug\net6.0\RabbitMQ.Client.MvcApplicationPartsAssemblyInfo.cs
+D:\Thuc tap tot nghiep\RabbitMQ.Client\obj\Debug\net6.0\RabbitMQ.Client.MvcApplicationPartsAssemblyInfo.cache

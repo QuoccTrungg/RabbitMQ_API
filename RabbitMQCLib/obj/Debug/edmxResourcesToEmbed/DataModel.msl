@@ -1,0 +1,16 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="RabbitMQModelStoreContainer" CdmEntityContainer="RabbitMQEntities">
+    <EntitySetMapping Name="ServerInfors">
+      <EntityTypeMapping TypeName="RabbitMQModel.ServerInfor">
+        <MappingFragment StoreEntitySet="ServerInfor">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="CPU" ColumnName="CPU" />
+          <ScalarProperty Name="RAM" ColumnName="RAM" />
+          <ScalarProperty Name="D" ColumnName="D" />
+          <ScalarProperty Name="Time" ColumnName="Time" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>
